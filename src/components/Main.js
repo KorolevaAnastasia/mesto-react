@@ -54,10 +54,10 @@ function Main(props) {
       </section>
 
       <section className="cards">
-        {cards.map((card, cardId) => (
+        {cards.map((card) => (
           <Card
             card={card}
-            key={cardId}
+            key={card._id}
             name={card.name}
             link={card.link}
             likes={card.likes.length}
