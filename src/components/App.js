@@ -41,19 +41,16 @@ function App() {
       closeAllPopups();
   }
 
-  function handleOverlayClose(evt) {
-    if (evt.target.classList.contains('popup__overlay'))
+  function handleOverlayClose() {
       closeAllPopups();
   }
 
   useEffect(() => {
     if (isEditProfilePopupOpen || isAddPlacePopupOpen || isEditAvatarPopupOpen || selectedCard) {
       document.addEventListener('keydown', handleEscClose);
-      document.addEventListener('click', handleOverlayClose);
-      return () => {
-        document.removeEventListener('keydown', handleEscClose);
-        document.removeEventListener('click', handleOverlayClose);
-      }
+    }
+    return () => {
+      document.removeEventListener('keydown', handleEscClose);
     }
   }, [isEditProfilePopupOpen, isAddPlacePopupOpen, isEditAvatarPopupOpen, selectedCard]);
 
@@ -73,26 +70,42 @@ function App() {
         onClose={() => {
           closeAllPopups()
         }}
+        onOverlayClick={() => {
+          handleOverlayClose()
+        }}
       />
 
       <PopupWithForm
         title={'Редактировать профиль'}
         name={'profile'}
         buttonText={'Сохранить'}
-        isOpen={isEditAvatarPopupOpen}
+        isOpen={isEditProfilePopupOpen}
         onClose={() => {
           closeAllPopups()
         }}
+        onOverlayClick={() => {
+          handleOverlayClose()
+        }}
       >
         <label className="popup__field">
-          <input id="name-input" name="name" className="popup__input popup__input_type_name"
-                 type="text" placeholder="Имя" required minLength="2" maxLength="40" />
-          <span className="name-input-error popup__error"></span>
+          <input id="name-input"
+                 name="name"
+                 className="popup__input popup__input_type_name"
+                 type="text"
+                 placeholder="Имя"
+                 required
+                 minLength="2" maxLength="40" />
+          <span className="name-input-error popup__error"/>
         </label>
         <label className="popup__field">
-          <input id="job-input" name="about" className="popup__input popup__input_type_job"
-                 type="text" placeholder="Род деятельности" required minLength="2" maxLength="200" />
-          <span className="job-input-error popup__error"></span>
+          <input id="job-input"
+                 name="about"
+                 className="popup__input popup__input_type_job"
+                 type="text"
+                 placeholder="Род деятельности"
+                 required
+                 minLength="2" maxLength="200" />
+          <span className="job-input-error popup__error"/>
         </label>
       </PopupWithForm>
 
@@ -100,15 +113,22 @@ function App() {
         title={'Обновить аватар'}
         name={'avatar'}
         buttonText={'Сохранить'}
-        isOpen={isEditProfilePopupOpen}
+        isOpen={isEditAvatarPopupOpen}
         onClose={() => {
           closeAllPopups()
         }}
+        onOverlayClick={() => {
+          handleOverlayClose()
+        }}
       >
         <label className="popup__field">
-          <input id="avatar-input" name="avatar" className="popup__input popup__input_type_avatar"
-                 type="url" placeholder="Ссылка на картинку" required />
-            <span className="avatar-input-error popup__error"></span>
+          <input id="avatar-input"
+                 name="avatar"
+                 className="popup__input popup__input_type_avatar"
+                 type="url"
+                 placeholder="Ссылка на картинку"
+                 required />
+            <span className="avatar-input-error popup__error"/>
         </label>
       </PopupWithForm>
 
@@ -120,16 +140,61 @@ function App() {
         onClose={() => {
           closeAllPopups()
         }}
+        onOverlayClick={() => {
+          handleOverlayClose()
+        }}
       >
         <label className="popup__field">
-          <input id="card-input" name="name" className="popup__input popup__input_type_card"
-                 type="text" placeholder="Название" required minLength="2" maxLength="30" />
-            <span className="card-input-error popup__error"></span>
+          <input id="card-input"
+                 name="name"
+                 className="popup__input popup__input_type_card"
+                 type="text"
+                 placeholder="Название"
+                 required
+                 minLength="2" maxLength="30" />
+            <span className="card-input-error popup__error"/>
         </label>
         <label className="popup__field">
-          <input id="link-input" name="link" className="popup__input popup__input_type_link"
-                 type="url" placeholder="Ссылка на картинку" required />
-            <span className="link-input-error popup__error"></span>
+          <input id="link-input"
+                 name="link"
+                 className="popup__input popup__input_type_link"
+                 type="url"
+                 placeholder="Ссылка на картинку"
+                 required />
+            <span className="link-input-error popup__error"/>
+        </label>
+      </PopupWithForm>
+
+      <PopupWithForm
+        title = 'Редактировать профиль'
+        name = 'profile'
+        buttonText = 'Сохранить'
+        onClose={() => {
+          closeAllPopups()
+        }}
+        onOverlayClick={() => {
+          handleOverlayClose()
+        }}
+      >
+        <label className="popup__field">
+          <input id="name-input"
+                 name="name"
+                 className="popup__input popup__input_type_name"
+                 type="text"
+                 placeholder="Имя"
+                 required
+                 minLength="2" maxLength="40"/>
+          <span className="name-input-error popup__error"/>
+        </label>
+        <label className="popup__field">
+          <input id="job-input"
+                 name="about"
+                 className="popup__input popup__input_type_job"
+                 type="text"
+                 placeholder="Род деятельности"
+                 required
+                 minLength="2" maxLength="200"/>
+          <span className="job-input-error popup__error"/>
         </label>
       </PopupWithForm>
 
@@ -139,6 +204,9 @@ function App() {
         buttonText={'Да'}
         onClose={() => {
           closeAllPopups()
+        }}
+        onOverlayClick={() => {
+          handleOverlayClose()
         }}
       />
 

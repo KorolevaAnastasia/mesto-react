@@ -43,22 +43,21 @@ function Main(props) {
             <button aria-label="Редактировать"
                     type="button"
                     className="profile__edit-button"
-                    onClick={props.onEditProfile}>
-            </button>
+                    onClick={props.onEditProfile}/>
           </div>
         <p className="profile__job">{userData.userDescription}</p>
         </div>
         <button aria-label="Добавить"
                 type="button"
                 className="profile__card-button"
-                onClick={props.onAddPlace}></button>
+                onClick={props.onAddPlace}/>
       </section>
 
       <section className="cards">
-        {cards.map((card, id) => (
+        {cards.map((card, cardId) => (
           <Card
             card={card}
-            key={id}
+            key={cardId}
             name={card.name}
             link={card.link}
             likes={card.likes.length}
@@ -67,23 +66,6 @@ function Main(props) {
         ))}
       </section>
     </main>
-
-    <PopupWithForm
-        title = 'Редактировать профиль'
-        name = 'profile'
-        buttonText = 'Сохранить'
-    >
-      <label className="popup__field">
-        <input id="name-input" name="name" className="popup__input popup__input_type_name"
-               type="text" placeholder="Имя" required minLength="2" maxLength="40"/>
-          <span className="name-input-error popup__error"></span>
-      </label>
-      <label className="popup__field">
-        <input id="job-input" name="about" className="popup__input popup__input_type_job"
-               type="text" placeholder="Род деятельности" required minLength="2" maxLength="200"/>
-          <span className="job-input-error popup__error"></span>
-      </label>
-    </PopupWithForm>
 
     </>
   );
