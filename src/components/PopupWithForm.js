@@ -10,13 +10,12 @@ function PopupWithForm(props) {
                 className="popup__close-button"
                 onClick={props.onClose}/>
         <h3 className="popup__header">{props.title}</h3>
-        <form name={props.name} className={`popup__form popup__form-${props.name}`}>
+        <form name={props.name} onSubmit={props.onSubmit} className={`popup__form popup__form-${props.name}`}>
           {props.children}
           <button type="submit" aria-label="Сохранить"
-                  className="popup__save-button popup__button popup__button_disabled"
-                  value="Сохранить"
-                  disabled>
-            {props.buttonText}
+                  className="popup__save-button popup__button"
+                  value="Сохранить">
+            {props.isLoading ? props.loadingButtonText : props.buttonText}
           </button>
         </form>
       </div>
