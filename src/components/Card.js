@@ -22,7 +22,7 @@ function Card(props) {
     <>
     <article className="card">
       {isOwn && <button type="button" aria-label="Удалить" className="card__delete-button" onClick={handleCardDelete}/>}
-      <img className="card__img" src={props.link} alt="Изображение" onClick={handleClick}/>
+      <img className="card__img" src={props.link} alt={props.name} onClick={handleClick}/>
         <div className="card__group">
           <h2 className="card__name">{props.name}</h2>
           <div className="card__like-block">

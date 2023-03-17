@@ -15,7 +15,7 @@ function Main(props) {
           </div>
           <img className="profile__avatar"
                src={currentUser.avatar}
-               alt="Фотография профиля пользователя" />
+               alt={currentUser.name} />
         </div>
         <div className="profile__info">
           <div className="profile__edit">
