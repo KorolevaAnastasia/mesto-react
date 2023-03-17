@@ -1,11 +1,20 @@
 import React from 'react';
+import {useForm} from "react-hook-form";
 import PopupWithForm from './PopupWithForm';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
+import Input from "./Input";
 
 function EditProfilePopup(props) {
   const [name, setName] = React.useState('');
   const [description, setDescription] = React.useState('');
   const currentUser = React.useContext(CurrentUserContext);
+  const { handleSubmit, control, formState: { errors, isValid }, reset} = useForm({
+    mode: "onChange",
+    defaultValues: {
+      name: '',
+      about: ''
+    }
+  });
 
   React.useEffect(() => {
     setName(currentUser.name);
@@ -20,12 +29,12 @@ function EditProfilePopup(props) {
     setDescription(evt.target.value);
   }
 
-  function handleSubmit(evt) {
-    evt.preventDefault();
+  function onSubmit() {
     props.onUpdateUser({
       name: name,
       about: description,
     });
+    reset();
   }
 
   return (
@@ -39,31 +48,49 @@ function EditProfilePopup(props) {
       isOpen={props.isOpen}
       onClose={props.onClose}
       onOverlayClick={props.onOverlayClick}
-      onSubmit={handleSubmit}
+      onSubmit={handleSubmit(onSubmit)}
+      isValid={isValid}
     >
       <label className="popup__field">
-        <input id="name-input"
-               name="name"
-               className="popup__input popup__input_type_name"
-               type="text"
-               placeholder="Имя"
-               required
-               minLength="2" maxLength="40"
-               value={name ?? ''}
-               onChange={handleNameChange}/>
-        <span className="name-input-error popup__error"/>
+        <Input control={control} rules={{
+          required: 'Поле обязательно для заполнения.',
+          minLength: {
+            value: 2,
+            message: 'Минимум 2 символа.'
+          },
+          maxLength: {
+            value: 40,
+            message: 'Максимум 40 символов.'
+          }}}
+         id={'name'}
+         name={'name'}
+         placeholder={'Имя'}
+         type={'text'}
+         value={name}
+         errors={errors}
+         onChange={handleNameChange}
+       />
       </label>
+
       <label className="popup__field">
-        <input id="job-input"
-               name="about"
-               className="popup__input popup__input_type_job"
-               type="text"
-               placeholder="Род деятельности"
-               required
-               minLength="2" maxLength="200"
-               value={description ?? ''}
-               onChange={handleDescriptionChange}/>
-        <span className="job-input-error popup__error"/>
+        <Input control={control} rules={{
+            required: 'Поле обязательно для заполнения.',
+            minLength: {
+              value: 2,
+              message: 'Минимум 2 символа.'
+            },
+            maxLength: {
+              value: 200,
+              message: 'Максимум 200 символов.'
+            }}}
+         id={'about'}
+         name={'about'}
+         placeholder={'Род деятельности'}
+         type={'text'}
+         value={description}
+         errors={errors}
+         onChange={handleDescriptionChange}
+        />
       </label>
     </PopupWithForm>
   )

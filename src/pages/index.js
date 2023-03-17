@@ -35,7 +35,7 @@ const cardRemovePopup = new PopupWithConfirmation('.popup-card-remove');
 
 const profileData = new UserInfo({
   name: '.profile__name',
-  about: '.profile__job',
+  about: '.profile__about',
   avatar: '.profile__avatar'
 });
 

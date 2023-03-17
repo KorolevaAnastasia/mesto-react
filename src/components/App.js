@@ -192,6 +192,7 @@ function App() {
           onOverlayClick={handleOverlayClose}
           onSubmit={handleCardDelete}
           isLoading={isLoading}
+          isValid={true}
         />
 
       </div>

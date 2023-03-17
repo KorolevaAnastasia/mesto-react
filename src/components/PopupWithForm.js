@@ -13,7 +13,8 @@ function PopupWithForm(props) {
         <form name={props.name} onSubmit={props.onSubmit} className={`popup__form popup__form-${props.name}`}>
           {props.children}
           <button type="submit" aria-label="Сохранить"
-                  className="popup__save-button popup__button"
+                  className={`popup__save-button popup__button ${!props.isValid ? 'popup__button_disabled' : ''}`}
+                  disabled={!props.isValid}
                   value="Сохранить">
             {props.isLoading ? props.loadingButtonText : props.buttonText}
           </button>
